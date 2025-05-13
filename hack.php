@@ -13,5 +13,4 @@
 ?>
 </pre>
 </body>
-<script>document.getElementById("cmd").focus();</script>
 </html>
