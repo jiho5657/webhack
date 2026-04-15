@@ -57,4 +57,4 @@ Expect the LLL step to take a few seconds on the default parameters.
 
 ## Flag
 
-`flag{c0pp3rsm1th_w1th_b3t4_0n3_th1rd_1s_th3_k3y_ad3f12}`
+`MJSEC{c0pp3rsm1th_w1th_b3t4_0n3_th1rd_1s_th3_k3y_ad3f12}`
