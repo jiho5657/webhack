@@ -1,60 +1,20 @@
 # Hollowed
 
-> *A very hard crypto challenge.*
+세 개의 소수로 이루어진 RSA 모듈러스와, 그 중 하나의 상위 비트 일부가 새어나갔다.
+`challenge/output.txt` 를 보고 플래그를 복구하라.
 
-A three-prime RSA modulus, a flag encrypted under textbook RSA, and a
-single leaked chunk of one of the primes. Surely a handful of bits
-can't hurt, right?
+공개 값:
 
-## Category
-
-Crypto / Lattices (hard)
-
-## Files given to the player
-
-```
-challenge/output.txt     public parameters
-```
-
-The player receives:
-
-- `N`, the RSA modulus (2048 bits)
+- `N` : 2048비트 RSA 모듈러스
 - `e = 65537`
 - `c = flag^e mod N`
-- `p_high`, the 470 most-significant bits of one prime factor `p`
-- the bit-sizes that describe what `p_high` is
+- `p_high` : 어떤 소수 인수 `p` 의 상위 `leak_bits` 비트
+- `prime_bits`, `unknown_bits`, `leak_bits` : 비트 수 파라미터
 
-That is it. No oracle, no source-code instrumentation, no side
-channel. Everything needed sits in `output.txt`.
+플래그 포맷: `MJSEC{...}`
 
-## Intended solution
+## Hints
 
-See `solution/solve.sage` and `solution/writeup.md`. In one line:
-
-```
-Coppersmith's theorem with beta = 1/3 (not 1/2) recovers p.
-```
-
-## Reproducing the challenge
-
-```sh
-pip install pycryptodome
-python3 challenge/gen.py
-```
-
-Running the generator overwrites `challenge/output.txt`. The flag is
-hard-coded in `gen.py`; swap in your event's flag before deploying.
-
-## Running the solver
-
-The reference solution uses SageMath's `small_roots`:
-
-```sh
-cd solution && sage solve.sage
-```
-
-Expect the LLL step to take a few seconds on the default parameters.
-
-## Flag
-
-`MJSEC{c0pp3rsm1th_w1th_b3t4_0n3_th1rd_1s_th3_k3y_ad3f12}`
+1. `N` 의 소인수는 두 개가 아니다.
+2. Coppersmith 의 `beta` 는 고정된 값이 아니라 `log p / log N` 이다.
+3. SageMath `small_roots` 의 기본 `epsilon` 은 이 문제에서 여유가 부족하다.
